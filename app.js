@@ -11,6 +11,8 @@ const cookieParser = require('cookie-parser')
 
 const dbUrl = process.env.DB_URL
 const userRouter = require("./routes/user")
+const formRouter = require("./routes/form")
+const projectRouter = require("./routes/project")
 
 
 app.use(cookieParser())
@@ -24,6 +26,8 @@ app.get("/", (req, res) => {
     res.send("welcome to FormJs website")
 })
 app.use("/api", userRouter)
+app.use("/api/form", formRouter)
+app.use("/api/project", projectRouter)
 
 
 

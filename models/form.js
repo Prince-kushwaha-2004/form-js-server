@@ -9,6 +9,10 @@ const formSchema = new Schema({
     form: {
         type: Object,
         required: true
+    },
+    api_key: {
+        type: String,
+        required: true
     }
 })
 

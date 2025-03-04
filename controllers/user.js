@@ -5,11 +5,11 @@ const generateToken = require('../utils/generateToken')
 module.exports.register = async (req, res) => {
     let { email, name, password, confirmPassword } = req.body;
     if (email == undefined || name == undefined || password == undefined || confirmPassword == undefined) {
-        return res.status(400).json({ "message": "Data is unsufficient" })
+        return res.status(400).json({ "error": "Data is unsufficient" })
     }
     console.log(req.body);
     if (password !== confirmPassword) {
-        return res.status(401).json({ "message": "Password does not match" })
+        return res.status(401).json({ "error": "Password does not match" })
     }
     const hashPassword = await bcrypt.hash(password, 10);
     newuser = {
