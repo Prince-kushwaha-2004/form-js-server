@@ -7,7 +7,6 @@ module.exports.register = async (req, res) => {
     if (email == undefined || name == undefined || password == undefined || confirmPassword == undefined) {
         return res.status(400).json({ "error": "Data is unsufficient" })
     }
-    console.log(req.body);
     if (password !== confirmPassword) {
         return res.status(401).json({ "error": "Password does not match" })
     }

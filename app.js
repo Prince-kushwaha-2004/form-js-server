@@ -13,7 +13,7 @@ const dbUrl = process.env.DB_URL
 const userRouter = require("./routes/user")
 const formRouter = require("./routes/form")
 const projectRouter = require("./routes/project")
-
+const ExpressError = require("./utils/ExpressError")
 
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
@@ -32,6 +32,15 @@ app.use("/api/project", projectRouter)
 
 
 
+//error route
+app.all("*", (req, res, next) => {
+    next(new ExpressError(404, "Invalid Url!!"));
+})
+//error handling middleware 
+app.use((err, req, res, next) => {
+    let { statusCode = 500, message = "Some thing went wrong!" } = err;
+    res.status(statusCode).json({ "error": message });
+})
 
 
 

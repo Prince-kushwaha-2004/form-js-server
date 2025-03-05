@@ -13,7 +13,12 @@ const formSchema = new Schema({
     api_key: {
         type: String,
         required: true
-    }
-})
+    },
+    parent: {
+        type: Schema.Types.ObjectId,
+        ref: "Project",
+        require: true
+    },
+}, { timestamps: true })
 
 module.exports = mongoose.model('Form', formSchema)
