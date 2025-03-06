@@ -6,7 +6,7 @@ const wrapAsync = require('../utils/wrapAsync')
 
 router
     .route("/")
-    .get(getForm)
+    .get(wrapAsync(getForm))
     .post(isLogin, isOwner, wrapAsync(createForm))
 
 router

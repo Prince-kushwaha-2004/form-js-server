@@ -7,6 +7,9 @@ module.exports.register = async (req, res) => {
     if (email == undefined || name == undefined || password == undefined || confirmPassword == undefined) {
         return res.status(400).json({ "error": "Data is unsufficient" })
     }
+    let usr = await User.findOne({ "email": email })
+    if (usr) return res.status(400).json({ "error": "User already Exist with this email" })
+
     if (password !== confirmPassword) {
         return res.status(401).json({ "error": "Password does not match" })
     }
@@ -23,7 +26,6 @@ module.exports.register = async (req, res) => {
 
 module.exports.login = async (req, res) => {
     data = req.body
-    console.log(req.body)
     if (!data || !data.email || !data.password) {
         return res.status(400).json({ "error": "unsufficient data" })
     }

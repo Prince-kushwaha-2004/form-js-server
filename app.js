@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
 
 
-const dbUrl = process.env.DB_URL
+const dbUrl = process.env.ATLAS_URL
 const userRouter = require("./routes/user")
 const formRouter = require("./routes/form")
 const projectRouter = require("./routes/project")

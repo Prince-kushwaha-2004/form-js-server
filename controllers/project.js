@@ -5,8 +5,11 @@ module.exports.createProject = async (req, res) => {
     if (!name) {
         return res.status(400).send({ "error": "Data is unsufficient" })
     }
+    let oldProject = await Project.findOne({ name: name, user: req.user })
+    if (oldProject) return res.status(400).json({ "error": "Project already Exist" })
+
     let project = new Project({ name, user: req.user._id })
-    await project.save();
+    await project.save(); User
     res.status(201).json({ "message": "Project Created Successfully!!" })
 }
 
@@ -22,7 +25,11 @@ module.exports.getOneProject = async (req, res) => {
 
 module.exports.updateProject = async (req, res) => {
     const data = req.body
-    if (!data) return res.status(400).send({ "error": "No Data to Update" })
+    if (!data.name) return res.status(400).send({ "error": "No Data to Update" })
+
+    let oldProject = await Project.findOne({ name: data.name, user: req.user })
+    if (oldProject) return res.status(400).json({ "error": "Project with this name already Exist" })
+
     const { project_id } = req.params
     await Project.findByIdAndUpdate(project_id, { ...data })
     res.status(200).json({ "message": "Project updated Successfully" })

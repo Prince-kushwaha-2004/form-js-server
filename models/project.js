@@ -4,7 +4,7 @@ const Form = require("./form")
 const projectSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
     },
     user: {
         type: Schema.Types.ObjectId,

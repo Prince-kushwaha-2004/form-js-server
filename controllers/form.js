@@ -7,6 +7,10 @@ module.exports.createForm = async (req, res) => {
     if (!(project_id && name && form)) {
         return res.status(400).send({ "error": "Data is unsufficient" })
     }
+
+    let oldForm = await Form.findOne({ name: name, parent: project_id })
+    if (oldForm) return res.status(400).json({ "error": "Form with this name already Exist" })
+
     let project = await Project.findById(project_id)
 
     let api_key = generateApiKey()
@@ -44,6 +48,12 @@ module.exports.updateForm = async (req, res) => {
     if (data.api_key || data.parent) return res.status(403).send({ "error": "You can not updata api key or parent id" })
 
     const { form_id } = req.params
+    let form = await Form.findById(form_id)
+    if (data.name) {
+        let oldForm = await Form.findOne({ name: data.name, parent: form.parent })
+        if (oldForm) return res.status(400).json({ "error": "Form with this name already Exist" })
+    }
+
     await Form.findByIdAndUpdate(form_id, { ...data })
     res.status(200).json({ "message": "Project updated Successfully" })
 }
