@@ -41,8 +41,12 @@ module.exports.login = async (req, res) => {
     res.status(200).json({ "message": "user login successfull" })
 }
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (req, res) => {
     res.clearCookie('token', { httpOnly: true, secure: true, sameSite: "NONE" });
     res.status(200).send({ "message": "user logout successfull" })
+
+}
+module.exports.authenticate = (req, res) => {
+    res.status(200).send({ "message": "user is authenticated", user: req.user })
 
 }
