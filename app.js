@@ -7,6 +7,7 @@ const app = express()
 const mongoose = require("mongoose")
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser')
+const cors = require('cors');
 
 
 const dbUrl = process.env.ATLAS_URL
@@ -18,6 +19,7 @@ const ExpressError = require("./utils/ExpressError")
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({ credentials: true, origin: ['http://localhost:5173', 'http://localhost:5174'] }))
 
 
 
